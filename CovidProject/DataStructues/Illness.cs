@@ -94,9 +94,9 @@ namespace CovidProject.DataStructues
 
         }
 
-        public static implicit operator string(Illness v)
-        {
-            throw new NotImplementedException();
-        }
+        //public static implicit operator string(Illness v)
+        //{
+
+        //}
     }
 }

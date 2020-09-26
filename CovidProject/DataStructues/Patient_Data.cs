@@ -10,6 +10,7 @@ namespace CovidProject.DataStructues
     {
         //datamember
         // p_data_illness is a collection of type dictionary having patirnt id as key and patient object as value.
+
         private Dictionary<int, Patient> p_data_illness = new Dictionary<int, Patient>();
 
         private static Patient_Data p1;
