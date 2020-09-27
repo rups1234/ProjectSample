@@ -21,6 +21,12 @@ namespace CovidProject
 
             Dictionary<int, Patient> s = pd.Getpatientdata();
 
+
+            //Collection used to store PT data with age above 60
+            List<Patient> Pt_Age = new List<Patient>();
+
+
+
             // Passing arguments
             // General(101, "Rahul", 33, 10, 2, "AB", "Bglr", "Viral", "Med", "Cold", 5, "NO");
 
@@ -36,20 +42,62 @@ namespace CovidProject
 
             Patient p2 =General(102, "Jon", 22, 77, 2, "B+", "Goa", "Viral", "Med", "Cough", 7, "Yes");
 
-            Patient p3 =General(103, "Jim", 245, 10, 2, "Z+", "Bglr", "WaterBorne", "Covid", "Fever", 2, "Yes");
+            Patient p3 =General(102, "Jim", 245, 10, 2, "Z+", "Bglr", "WaterBorne", "Covid", "Fever", 2, "Yes");
 
             Patient p4 = General(104, "Tim", 222, 70, 2, "+A", "Goa", "Viral", "Med", "Cold", 1, "NO");
 
             Patient p5 = General(105, "Kim", 222, 69, 2, "S+", "Jaipur", "Viral", "Med", "Cold", 5, "NO");
 
+
+           
+            //Invoke Add method : This will add elements
+            Program classobj = new Program();
+            classobj.GenericAdd(s,p1);
+            classobj.GenericAdd(s, p2);
+            classobj.GenericAdd(s, p3);
+            classobj.GenericAdd(s, p4);
+            classobj.GenericAdd(s, p5);
+
+            //Worst case scenarios
+           // classobj.GenericAdd(s, null); //adding some null data to the dictionary : no exception
+            //classobj.GenericAdd(null, p1);  //dic is null : exception will occur
+            classobj.GenericAdd(null, null);  //both dic & Pt obj is null : exception will occur.
+
+            
+
+
             //Add a new variiable : pt_covid : Add in Patinet Class and Main 
 
             //Updating Dictionary with values. Fetch data using getter method
-            s.Add(p1.Getpatient_ID(),p1);
-            s.Add(p2.Getpatient_ID(), p2);
-            s.Add(p3.Getpatient_ID(), p3);
-            s.Add(p4.Getpatient_ID(), p4);
-            s.Add(p5.Getpatient_ID(), p5);
+            //if(!s.ContainsKey(p1.Getpatient_ID()))
+            //{
+            //    s.Add(p1.Getpatient_ID(), p1);
+
+            //}
+
+            //if (!s.ContainsKey(p2.Getpatient_ID()))
+            //{
+            //    s.Add(p2.Getpatient_ID(), p2);
+
+            //}
+
+            //if (!s.ContainsKey(p3.Getpatient_ID()))
+            //{
+            //    s.Add(p3.Getpatient_ID(), p3);
+
+            //}
+            //if (!s.ContainsKey(p4.Getpatient_ID()))
+            //{
+            //    s.Add(p4.Getpatient_ID(), p4);
+
+            //}
+            //if (!s.ContainsKey(p5.Getpatient_ID()))
+            //{
+            //    s.Add(p5.Getpatient_ID(), p5);
+
+            //}
+
+
             int count = 0;
             
             foreach (var fetch in s)
@@ -232,10 +280,52 @@ namespace CovidProject
 
         }
 
-        //Creating a method of type Patient , since now data is for 5 patients it may increase to 50 2moro.
-        //Helper Method : Generic method that perform some Operation
 
-        static Patient General(int patient_ID, string patient_Name, int patient_phone, int patient_age, int patient_address,
+        //Passing Dictionary and Pt object to check if Key value exits or not : generic method.
+      
+        public void GenericAdd( Dictionary<int, Patient> patientdictionary,Patient ptobj  )
+        {
+
+
+            // Dictionary<int, Patient> pt = null;
+
+
+            //try
+            //{
+
+            //Enure Dictionary & Pt obj is not null
+            if (patientdictionary != null && ptobj != null) //Without Try block
+            {
+                //Ensure Key is not null
+                if (!patientdictionary.ContainsKey(ptobj.Getpatient_ID()))
+                {
+
+                    patientdictionary.Add(ptobj.Getpatient_ID(), ptobj);
+                }
+            }
+
+            Console.WriteLine("Exception");
+
+
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Exception handled");
+
+            //}
+
+
+
+
+
+        }
+
+        
+
+    //Creating a method of type Patient , since now data is for 5 patients it may increase to 50 2moro.
+    //Helper Method : Generic method that perform some Operation
+
+    static Patient General(int patient_ID, string patient_Name, int patient_phone, int patient_age, int patient_address,
             string patient_bloodgroup, string patient_City, string virustype, string severity, string symptoms, int NoOfDays, string AnyExistingillness)
         {
             //create objec of patient and set values of illness /patient to Patient object.
