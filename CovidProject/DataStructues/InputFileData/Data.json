@@ -1,0 +1,148 @@
+﻿{
+  "Patients": [
+    {
+      "patient_ID": 106,
+      "patient_Name": "Zim",
+      "patient_phone": 12345,
+      "patient_age": 45,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Jaipur",
+      "objectillness": {
+        "virustype": "Viral",
+        "severity": "High",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "NO"
+      }
+    },
+    {
+      "patient_ID": 107,
+      "patient_Name": "Riddhima",
+      "patient_phone": 12345,
+      "patient_age": 45,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Jaipur",
+      "objectillness": {
+        "virustype": "Viral",
+        "severity": "High",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "NO"
+      }
+    },
+     {
+      "patient_ID": 108,
+      "patient_Name": "Reema",
+      "patient_phone": 12345,
+      "patient_age": 45,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Jaipur",
+      "objectillness": {
+        "virustype": "Viral",
+        "severity": "High",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "NO"
+      }
+    },
+     {
+      "patient_ID": 109,
+      "patient_Name": "Rita",
+      "patient_phone": 12345,
+      "patient_age": 45,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Jaipur",
+      "objectillness": {
+        "virustype": "Viral",
+        "severity": "High",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "NO"
+      }
+    },
+     {
+      "patient_ID": 110,
+      "patient_Name": "Siddhi",
+      "patient_phone": 11345,
+      "patient_age": 15,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Kanpur",
+      "objectillness": {
+        "virustype": "NonViral",
+        "severity": "Mild",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "Yes"
+      }
+    },
+    {
+      "patient_ID": 111,
+      "patient_Name": "Seema",
+      "patient_phone": 11345,
+      "patient_age": 15,
+      "patient_address": 9,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Kanpur",
+      "objectillness": {
+        "virustype": "NonViral",
+        "severity": "Mild",
+        "symptoms": "Covid",
+        "NoOfDays": 5,
+        "AnyExistingillness": "Yes"
+      }
+    },
+     {
+      "patient_ID": 112,
+      "patient_Name": "Deepa",
+      "patient_phone": 113425,
+      "patient_age": 45,
+      "patient_address": 1,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Bglr",
+      "objectillness": {
+        "virustype": "NonViral",
+        "severity": "Mild",
+        "symptoms": "Cold",
+        "NoOfDays": 5,
+        "AnyExistingillness": "No"
+      }
+    },
+     {
+      "patient_ID": 113,
+      "patient_Name": "Manju",
+      "patient_phone": 113425,
+      "patient_age": 45,
+      "patient_address": 1,
+      "patient_bloodgroup": "A+",
+      "patient_City": "Bglr",
+      "objectillness": {
+        "virustype": "NonViral",
+        "severity": "Mild",
+        "symptoms": "Cold",
+        "NoOfDays": 5,
+        "AnyExistingillness": "No"
+      }
+    },
+    {
+      "patient_ID": 114,
+      "patient_Name": "Shaheen",
+      "patient_phone": 3245,
+      "patient_age": 20,
+      "patient_address": 12413,
+      "patient_bloodgroup": "B+",
+      "patient_City": "Mumbai",
+      "objectillness": {
+        "virustype": "Viral",
+        "severity": "Mild",
+        "symptoms": "Fever",
+        "NoOfDays": 2,
+        "AnyExistingillness": "No"
+      }
+    }
+  ]
+}

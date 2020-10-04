@@ -5,3 +5,6 @@ C:\Users\user\source\repos\CovidProject\CovidProject\obj\Debug\CovidProject.cspr
 C:\Users\user\source\repos\CovidProject\CovidProject\obj\Debug\CovidProject.csproj.CoreCompileInputs.cache
 C:\Users\user\source\repos\CovidProject\CovidProject\obj\Debug\CovidProject.exe
 C:\Users\user\source\repos\CovidProject\CovidProject\obj\Debug\CovidProject.pdb
+C:\Users\user\source\repos\CovidProject\CovidProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\user\source\repos\CovidProject\CovidProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\user\source\repos\CovidProject\CovidProject\obj\Debug\CovidProject.csproj.CopyComplete

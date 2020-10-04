@@ -8,12 +8,12 @@ namespace CovidProject.DataStructues
 {
     class Illness
     {
-        private string virustype;
-        private string severity;
-        private string symptoms;
-        private int NoOfDays;
-        private string AnyExistingillness;
-        private int patientID;
+        public string virustype;
+        public string severity;
+        public string symptoms;
+        public int NoOfDays;
+        public string AnyExistingillness;
+        public int patientID;
 
 
         //Setter and Getter methods for PatientID as I try to retriev just Patient ID from Illness Class.

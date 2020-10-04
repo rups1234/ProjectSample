@@ -1,6 +1,9 @@
 ﻿using CovidProject.DataStructues; //Proj is in COvid Folder but Class is in Data STructures folder so use this namespace.
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,7 +15,7 @@ namespace CovidProject
     {
 
 
-        static void Main(string[] args)
+        static void Main()
         {
 
             Patient_Data pd = Patient_Data.Pdetails();   //Create Singleton Object in Main
@@ -23,7 +26,7 @@ namespace CovidProject
 
 
             //Collection used to store PT data with age above 60
-            List<Patient> Pt_Age = new List<Patient>();
+            // List<Patient> Pt_Age = new List<Patient>();
 
 
 
@@ -31,39 +34,111 @@ namespace CovidProject
             // General(101, "Rahul", 33, 10, 2, "AB", "Bglr", "Viral", "Med", "Cold", 5, "NO");
 
             //Creating obj and assigning to Patient
-            Patient p1= General(101, "Rahul", 33, 65, 2, "AB", "Bglr", "Viral", "Med", "Cold", 5, "NO");
+            Patient p1 = General(101, "Rahul", 33, 65, 2, "AB", "Bglr", "Viral", "Med", "Cold", 5, "NO");
 
 
-           
+
 
 
             //pd.Setpatientdata
 
 
-            Patient p2 =General(102, "Jon", 22, 77, 2, "B+", "Goa", "Viral", "Med", "Cough", 7, "Yes");
+            Patient p2 = General(102, "Jon", 22, 77, 2, "B+", "Goa", "Viral", "Med", "Cough", 7, "Yes");
 
-            Patient p3 =General(102, "Jim", 245, 10, 2, "Z+", "Bglr", "WaterBorne", "Covid", "Fever", 2, "Yes");
+            //Convert in json format
+            Console.WriteLine(JsonConvert.SerializeObject(p2));
+
+            Patient p3 = General(102, "Jim", 245, 10, 2, "Z+", "Bglr", "WaterBorne", "Covid", "Fever", 2, "Yes");
 
             Patient p4 = General(104, "Tim", 222, 70, 2, "+A", "Goa", "Viral", "Med", "Cold", 1, "NO");
 
             Patient p5 = General(105, "Kim", 222, 69, 2, "S+", "Jaipur", "Viral", "Med", "Cold", 5, "NO");
 
+            //Adding Data to Json
+            //Change Data to Public instead of Private line 12-18
+            string jsonData =
+                @"{
+                 'patient_ID':106,  
+                 'patient_Name':'Zim',
+                 'patient_phone':15655,
+                 'patient_age':16,
+                 'patient_address':6,
+                 'patient_bloodgroup':'B+',
+                 'patient_City':'Jaipur',
+                  'objectillness':{
+                  
+                     'virustype':'Airborne',
+                     'severity':'High',
+                     'symptoms':'Fever',
+                     'NoOfDays':5,
+                     'AnyExistingillness':'NO',
+                            }
+                }";
 
-           
+            Patient m = JsonConvert.DeserializeObject<Patient>(jsonData);
+            Console.WriteLine(m.Getpatient_ID());
+            Console.WriteLine(m.Getpatient_Name());
+            Console.WriteLine(m.Getpatient_phone());
+            Console.WriteLine(m.Getpatient_age());
+            Console.WriteLine(m.Getpatient_address());
+            Console.WriteLine(m.Getpatient_bloodgroup());
+            Console.WriteLine(m.Getpatient_City());
+
+            
+            Console.WriteLine(m.Getpatient_illness()?.Getsymptoms()); //Validate Null check using ? operator for Object Datatypes . ? after integer its nullable.
+
+            Console.WriteLine(m.Getpatient_illness()?.Getsymptoms());
+            Console.WriteLine(m.Getpatient_illness()?.Getseverity());
+
+            Console.WriteLine(m.Getpatient_illness()?.GetNoOfDays());
+            Console.WriteLine(m.Getpatient_illness()?.GetAnyExistingillness());
+            Console.WriteLine(m.Getpatient_illness()?.GetType());
+
+
+            //Jobject o1 = JObject.Parse(File.ReadAllText(@"C:\Users\user\source\repos\CovidProject\CovidProject\DataStructues\InputFileData\Data.json"));
+
+           // Jobject object = Jobject.Parse(File.ReadAllText(@"C: \Users\user\source\repos\CovidProject\CovidProject\DataStructues\InputFileData\Data.json"));
+
+
+            JObject o1 = JObject.Parse(File.ReadAllText(@"C:\Users\amogh\source\repos\ProjectSample-master\CovidProject\InputData\data.json"));
+
+
+            var listPat = (JArray)o1["Patient"];
+
+            foreach (var pat in listPat)
+            {
+
+                Patient newPatient = JsonConvert.DeserializeObject<Patient>(pat.ToString());
+                //Invoke Generic method
+                General(pat);
+
+                //store in list of Pt
+                List<Patient> ptlist = new List<Patient>();
+               // ptlist = General(pat);
+
+
+                //Store in dic
+                
+            }
+
+
+
+
+
             //Invoke Add method : This will add elements
             Program classobj = new Program();
-            classobj.GenericAdd(s,p1);
+            classobj.GenericAdd(s, p1);
             classobj.GenericAdd(s, p2);
             classobj.GenericAdd(s, p3);
             classobj.GenericAdd(s, p4);
             classobj.GenericAdd(s, p5);
 
             //Worst case scenarios
-           // classobj.GenericAdd(s, null); //adding some null data to the dictionary : no exception
+            // classobj.GenericAdd(s, null); //adding some null data to the dictionary : no exception
             //classobj.GenericAdd(null, p1);  //dic is null : exception will occur
-            classobj.GenericAdd(null, null);  //both dic & Pt obj is null : exception will occur.
+            //classobj.GenericAdd(null, null);  //both dic & Pt obj is null : exception will occur.
 
-            
+
 
 
             //Add a new variiable : pt_covid : Add in Patinet Class and Main 
@@ -97,57 +172,17 @@ namespace CovidProject
 
             //}
 
-
-            int count = 0;
-            
-            foreach (var fetch in s)
-            {
-
-                Patient p= fetch.Value;
-              string a =  p.Getpatient_illness().Getsymptoms();
-                int agefactor = p.Getpatient_age();
-                string pt_name = p.Getpatient_Name();
-                string pt_illness = p.Getpatient_illness().GetAnyExistingillness();
-                string pt_severity = p.Getpatient_illness().Getseverity(); //Check which Pt has Covid using severity parameter.
+            RefactorMethod(s);
 
 
-                //Check how many Pt have Cold (Count)
-                if (a.Equals("Cold"))
-                    {
 
-                    Console.WriteLine(s);
-                    count++;
-                    }
-                    Console.WriteLine(count);
-
-                //Check how many Pt are above 60 age
-                if(agefactor > 60)
-                {
-                    Console.WriteLine("Patient Name" + pt_name  ,  "Age" + agefactor,"Existing Illness" + pt_illness);
-                    //count++;
-                   
-                }
-
-                //Pt details of those having Covid
-                if (pt_severity.Equals("Covid"))
-                {
-
-                    Console.WriteLine("Patient Name" + pt_name, "Age" + agefactor, "Is Diagnosied with " + pt_severity);
-                    
-                }
-               
-
-            }
-
-
-            
 
             //Set Dictionary  back to Patient Data Class
 
             pd.Setpatientdata(s);
 
 
-         
+
             //Patient p1 = new Patient(); //Create 5 Patient Objects 
             //Patient p2 = new Patient();
             //Patient p3 = new Patient();
@@ -280,10 +315,59 @@ namespace CovidProject
 
         }
 
+        private static void General(JToken pat)
+        {
+            Console.WriteLine(pat);
+        }
+
+        private static void RefactorMethod(Dictionary<int, Patient> s)
+        {
+            int count = 0;
+
+            foreach (var fetch in s)
+            {
+
+                Patient p = fetch.Value;
+                string a = p.Getpatient_illness().Getsymptoms();
+                int agefactor = p.Getpatient_age();
+                string pt_name = p.Getpatient_Name();
+                string pt_illness = p.Getpatient_illness().GetAnyExistingillness();
+                string pt_severity = p.Getpatient_illness().Getseverity(); //Check which Pt has Covid using severity parameter.
+
+
+                //Check how many Pt have Cold (Count)
+                if (a.Equals("Cold"))
+                {
+
+                    Console.WriteLine(s);
+                    count++;
+                }
+                Console.WriteLine(count);
+
+                //Check how many Pt are above 60 age
+                if (agefactor > 60)
+                {
+                    Console.WriteLine("Patient Name" + pt_name, "Age" + agefactor, "Existing Illness" + pt_illness);
+                    //count++;
+
+                }
+
+                //Pt details of those having Covid
+                if (pt_severity.Equals("Covid"))
+                {
+
+                    Console.WriteLine("Patient Name" + pt_name, "Age" + agefactor, "Is Diagnosied with " + pt_severity);
+
+                }
+
+
+            }
+        }
+
 
         //Passing Dictionary and Pt object to check if Key value exits or not : generic method.
-      
-        public void GenericAdd( Dictionary<int, Patient> patientdictionary,Patient ptobj  )
+
+        public void GenericAdd(Dictionary<int, Patient> patientdictionary, Patient ptobj)
         {
 
 
@@ -320,13 +404,13 @@ namespace CovidProject
 
         }
 
-        
 
-    //Creating a method of type Patient , since now data is for 5 patients it may increase to 50 2moro.
-    //Helper Method : Generic method that perform some Operation
 
-    static Patient General(int patient_ID, string patient_Name, int patient_phone, int patient_age, int patient_address,
-            string patient_bloodgroup, string patient_City, string virustype, string severity, string symptoms, int NoOfDays, string AnyExistingillness)
+        //Creating a method of type Patient , since now data is for 5 patients it may increase to 50 2moro.
+        //Helper Method : Generic method that perform some Operation
+
+        static Patient General(int patient_ID, string patient_Name, int patient_phone, int patient_age, int patient_address,
+                string patient_bloodgroup, string patient_City, string virustype, string severity, string symptoms, int NoOfDays, string AnyExistingillness)
         {
             //create objec of patient and set values of illness /patient to Patient object.
 
@@ -367,24 +451,24 @@ namespace CovidProject
             {
                 //else setting blood Gp to NA
                 pt.Setpatient_bloodgroup("NA");
-                
+
             }
-           // pt.Setpatient_bloodgroup(patient_bloodgroup);
+            // pt.Setpatient_bloodgroup(patient_bloodgroup);
 
             pt.Setpatient_City(patient_City);
 
 
-        
+
 
             return pt;
 
             //string bgroup = "AB+"; //Upper case
 
-           // string bloodgroup = "ab+";  //Lower case
+            // string bloodgroup = "ab+";  //Lower case
 
 
             //regexoptions: ignorecase -it considers upper & lower case.
-          
+
 
 
 
@@ -394,7 +478,7 @@ namespace CovidProject
             //    {
 
             //    Console.WriteLine(s);
-            
+
             //     }
 
 
@@ -404,71 +488,71 @@ namespace CovidProject
 
 
         }
-        }
     }
+}
 
 
 
 //Other Programs***********************************************************************
 
-        // enum Week { Monday,Tuesday,Wed,}
-        // static void Main(string[] args)
-       // {
-            ////Enum*******************************************************
+// enum Week { Monday,Tuesday,Wed,}
+// static void Main(string[] args)
+// {
+////Enum*******************************************************
 
 
-            //int count = (int)Week.Monday;
+//int count = (int)Week.Monday;
 
-            //Console.WriteLine(count);
-            //var values = Enum.GetValues(typeof(Week));
-            //foreach(var individual in values)
-            //{
-            //    Console.WriteLine(individual); //Print only values
-            //}
-            
-            
-            
-            
-            
-            //********************************************************
+//Console.WriteLine(count);
+//var values = Enum.GetValues(typeof(Week));
+//foreach(var individual in values)
+//{
+//    Console.WriteLine(individual); //Print only values
+//}
 
-            //Nullable Types :
 
-            //bool? covidresults = null; //if u know there could be null i/p than use this ie person has not tested .
 
-            //if(covidresults==true)
-            //{
-            //    Console.WriteLine("Positive");
 
-            //}
-            //else if(covidresults==false)
-            //{
-            //    Console.WriteLine("Negative");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Not tested");
-            //}
+
+//********************************************************
+
+//Nullable Types :
+
+//bool? covidresults = null; //if u know there could be null i/p than use this ie person has not tested .
+
+//if(covidresults==true)
+//{
+//    Console.WriteLine("Positive");
+
+//}
+//else if(covidresults==false)
+//{
+//    Console.WriteLine("Negative");
+//}
+//else
+//{
+//    Console.WriteLine("Not tested");
+//}
 
 //*******************************************************************************
-            ////Here u have multiple string OBjects
-            //// string a = "A";
-            //string a = " World is beautiful";
-            //string b = "B";
+////Here u have multiple string OBjects
+//// string a = "A";
+//string a = " World is beautiful";
+//string b = "B";
 
-            //a = a + b;
-            //Console.WriteLine(a);
+//a = a + b;
+//Console.WriteLine(a);
 
-            ////Use StringBuilder
+////Use StringBuilder
 
-            //StringBuilder s = new StringBuilder(a);
+//StringBuilder s = new StringBuilder(a);
 
-            //s.Append("C");
-            //s.Remove(0, 2);
-            //s.Replace("How", "Is");
-            //s.Insert(0, "Test **");
+//s.Append("C");
+//s.Remove(0, 2);
+//s.Replace("How", "Is");
+//s.Insert(0, "Test **");
 
-            //Console.WriteLine(s);
+//Console.WriteLine(s);
 
 
 

@@ -9,19 +9,19 @@ namespace CovidProject.DataStructues
     class Patient
     {
         //Values will be passed using Excel . How can we modify the code for dynamically changing data.
-        private int patient_ID;
-        private string patient_Name;
-        private int patient_phone;
-        private int patient_age;
-        private int patient_address; // This will have both alphabets / numbers should be integer?
-        private string patient_bloodgroup;
-        private string patient_City;
+        public int patient_ID;
+        public string patient_Name;
+        public int patient_phone;
+        public int patient_age;
+        public int patient_address; // This will have both alphabets / numbers should be integer?
+        public string patient_bloodgroup;
+        public string patient_City;
 
 
 
         //store Object of Illness class
 
-        private Illness objectillness;
+        public Illness objectillness;
 
 
 
